@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Juniper Salon Waitlist</title>
+<style>
+  @page { size: 1280px 720px; margin: 0; }
+  :root {
+    --bg: #f3f0e9; --ink: #222c29; --muted: #5c6662; --green: #315f50; --green-soft: #e3ece7;
+    --eyebrow: #47685d; --card: #fffdf8; --line: #d5cfc2; --amber: #fde7c2; --amber-ink: #6b4300;
+    --red-soft: #fbe3df; --red-ink: #8a2a1c; --sand: #ece8de;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: Inter, -apple-system, "Helvetica Neue", Arial, sans-serif; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .slide { position: relative; width: 1280px; height: 720px; padding: 52px 64px 48px; overflow: hidden; page-break-after: always; break-after: page; display: flex; flex-direction: column; }
+  .slide:last-child { page-break-after: auto; break-after: auto; }
+  .eyebrow { margin: 0; color: var(--eyebrow); font-size: 13px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
+  h1 { margin: 10px 0 26px; max-width: 1080px; font-family: Georgia, "Times New Roman", serif; font-size: 40px; font-weight: 500; line-height: 1.12; }
+  .footer { position: absolute; left: 64px; right: 64px; bottom: 22px; display: flex; justify-content: space-between; color: #8a8f8b; font-size: 12px; }
+  .card { padding: 20px 22px; border: 1px solid var(--line); border-radius: 14px; background: var(--card); }
+  .tag { display: inline-block; padding: 3px 9px; border-radius: 999px; background: var(--sand); color: var(--muted); font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+  .tag.staff { background: var(--amber); color: var(--amber-ink); }
+  ul { margin: 0; padding-left: 20px; }
+  li { margin-bottom: 8px; line-height: 1.4; }
+  strong { font-weight: 700; }
+
+  /* Slide 1 */
+  .s1 { display: grid; grid-template-columns: 1.15fr 1fr; gap: 36px; flex: 1; }
+  .loop { display: flex; flex-direction: column; gap: 13px; }
+  .step { display: flex; align-items: center; gap: 14px; padding: 17px 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); font-size: 18.5px; }
+  .step .n { flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--green-soft); color: var(--green); font-weight: 800; display: grid; place-items: center; font-size: 14px; }
+  .step.wait { border-color: #e9b45c; background: #fff4df; }
+  .step.wait .n { background: var(--amber); color: var(--amber-ink); }
+  .step small { display: block; color: var(--muted); font-size: 13px; margin-top: 2px; }
+  .repeat { margin: 2px 0 0 60px; color: var(--amber-ink); font-size: 14px; font-weight: 700; }
+  .rules h3, .goals h3 { margin: 0 0 10px; font-size: 15px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--eyebrow); }
+  .rules { margin-bottom: 20px; }
+  .rules li, .goals li { font-size: 18px; margin-bottom: 11px; }
+  .goals .no { color: var(--red-ink); }
+
+  /* Slide 2 */
+  .s2 { display: grid; grid-template-columns: 1fr 560px; gap: 28px; flex: 1; min-height: 0; }
+  .s2 h1 { margin-bottom: 20px; }
+  .flow { display: flex; flex-direction: column; gap: 8px; }
+  .flow .step { align-items: flex-start; font-size: 14.5px; line-height: 1.36; padding: 10px 14px; }
+  .flow .step.staffstep { border-color: #e9b45c; background: #fff4df; }
+  .flow .step .tag { margin-left: 4px; vertical-align: 1px; }
+  .shots { display: flex; flex-direction: column; gap: 8px; }
+  .shots img { display: block; border: 1px solid var(--line); border-radius: 10px; background: var(--card); }
+  .shots .held { width: 560px; }
+  .shots .row { display: flex; gap: 14px; align-items: flex-start; }
+  .shots .booked { width: 350px; }
+  .shots .caption { margin: 0; color: var(--muted); font-size: 12.5px; line-height: 1.4; }
+  .temporal { margin-top: 10px; padding: 12px 16px; border-radius: 12px; background: var(--green); color: white; font-size: 14px; line-height: 1.42; }
+  .temporal strong { color: #ffe7b8; }
+
+  /* Slide 3 */
+  .s3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .col h2 { margin: 0 0 4px; font-size: 20px; }
+  .col p.sub { margin: 0 0 10px; color: var(--muted); font-size: 14px; }
+  .col li { font-size: 15px; margin-bottom: 6px; }
+  .s3 .card { padding: 18px 20px; }
+  .col.works { border-top: 6px solid var(--green); }
+  .col.sim { border-top: 6px solid #e9b45c; }
+  .col.not { border-top: 6px solid #b9b2a4; }
+  .callout { margin-top: 16px; padding: 13px 20px; border-radius: 12px; background: var(--red-soft); color: var(--red-ink); font-size: 18px; font-weight: 700; text-align: center; }
+
+  /* Slide 4 */
+  .s4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .phase { position: relative; padding-top: 22px; min-height: 380px; }
+  .phase .num { font-family: Georgia, serif; font-size: 34px; color: var(--green); line-height: 1; }
+  .phase h2 { margin: 10px 0 14px; font-size: 21px; }
+  .phase li { font-size: 16.5px; margin-bottom: 12px; }
+  .phase.pilot { background: var(--green-soft); border-color: #b9cfc4; }
+  .arrow { position: absolute; right: -14px; top: 46%; width: 14px; color: #9a9384; font-size: 26px; font-weight: 700; }
+  .note { margin-top: 30px; color: var(--muted); font-size: 16px; text-align: center; }
+  .note strong { color: var(--ink); }
+</style>
+</head>
+<body>
+
+<!-- Slide 1: Problem -->
+<section class="slide">
+  <p class="eyebrow">Juniper Salon · What we heard</p>
+  <h1>Every last-minute cancellation turns you and Carla into a text-message switchboard</h1>
+  <div class="s1">
+    <div class="loop">
+      <div class="step"><span class="n">1</span><div>Open the Google Sheet of clients wanting an earlier slot</div></div>
+      <div class="step"><span class="n">2</span><div>Find a match: service, time, and stylist if they insist on one</div></div>
+      <div class="step"><span class="n">3</span><div>Text them from the salon phone</div></div>
+      <div class="step wait"><span class="n">4</span><div><strong>Wait and keep checking for a reply</strong><small>Between clients, at the front desk, on the floor</small></div></div>
+      <div class="step wait"><span class="n">5</span><div><strong>No reply or a “no”? Text the next person</strong><small>…and start watching again</small></div></div>
+      <p class="repeat">↻ Repeats until the slot is filled or the day runs out</p>
+    </div>
+    <div>
+      <div class="card rules">
+        <h3>Your rules</h3>
+        <ul>
+          <li>One client at a time, earliest on the waitlist first</li>
+          <li>Same-day openings: <strong>15 minutes</strong> to accept or decline</li>
+          <li>No reply doesn’t cost anyone their place on the waitlist</li>
+          <li>When someone accepts, hold the slot while staff check Square</li>
+        </ul>
+      </div>
+      <div class="card goals">
+        <h3>What matters</h3>
+        <ul>
+          <li>Less staff time chasing replies</li>
+          <li>More cancelled appointments filled</li>
+          <li class="no">Never double-book, and never need constant checking</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>Juniper Salon waitlist prototype</span><span>1 / 4</span></div>
+</section>
+
+<!-- Slide 2: Prototype behavior -->
+<section class="slide">
+  <p class="eyebrow">What the prototype does</p>
+  <h1>Each cancelled slot gets its own process that remembers, waits, and moves on, so staff don’t have to</h1>
+  <div class="s2">
+    <div>
+      <div class="flow">
+        <div class="step"><span class="n">1</span><div><strong>Texts the earliest eligible client, one at a time.</strong> It remembers who holds the offer, and only that client’s reply counts. Late replies and replies from anyone else are turned away.</div></div>
+        <div class="step"><span class="n">2</span><div><strong>Keeps track of the 15-minute wait without staff watching the clock.</strong> On a decline or no reply it texts the next eligible client. Clients who don’t reply keep their place.</div></div>
+        <div class="step staffstep"><span class="n">3</span><div><strong>Someone accepts → the slot is held</strong> and no one else is texted. <span class="tag staff">Staff</span> Check Square, then <em>Confirm</em> (the client is marked booked and gets no more offers) or <em>Can’t book</em> (that client is told, stays on the waitlist, and the next is offered).</div></div>
+        <div class="step staffstep"><span class="n">4</span><div><strong>The opening disappears</strong> (original client returns, stylist is out). <span class="tag staff">Staff</span> <em>Opening is gone</em>: the current client is told and outreach stops. No one else is offered it.</div></div>
+      </div>
+      <div class="temporal">
+        <strong>How it stays on track:</strong> each opening is run by Temporal, a durable coordinator. It remembers the current step, waits for a reply or the 15-minute deadline, and continues the outreach on its own. The same stylist and time can’t be logged twice.
+      </div>
+    </div>
+    <div class="shots">
+      <img class="held" src="assets/held-opening.png" alt="Dashboard card: Haircut with Carla today 8:00 PM, Needs staff check. Sam Rivera accepted; the opening is held and no one else is being texted. Buttons: Confirm booking, Can't book: tell client, offer next." />
+      <p class="caption">Sam accepted the 8:00 PM opening. It is held while staff check Square.</p>
+      <div class="row">
+        <img class="booked" src="assets/waitlist-booked.png" alt="Waitlist rows: Maya Chen and Jordan Lee marked BOOKED; other clients have Remove." />
+        <p class="caption">Maya and Jordan were booked into earlier openings, so they are marked <strong>Booked</strong> and weren’t offered this one.<br /><br />Prototype dashboard, demo timing (30-second reply window; normally 15 minutes). Sample clients only.</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>Juniper Salon waitlist prototype</span><span>2 / 4</span></div>
+</section>
+
+<!-- Slide 3: Simulated / excluded -->
+<section class="slide">
+  <p class="eyebrow">Where the prototype stands</p>
+  <h1>The offer process works in the prototype; the texts, waitlist sheet, and Square check are stand-ins</h1>
+  <div class="s3">
+    <div class="card col works">
+      <h2>Works in the prototype</h2>
+      <p class="sub">Covered by automated tests and checked on a local setup</p>
+      <ul>
+        <li>Matching on service, availability, and required stylist</li>
+        <li>One client at a time, earliest first</li>
+        <li>15-minute reply window (shortened to 30 seconds for demos)</li>
+        <li>Automatic move to the next client after a decline or no reply</li>
+        <li>Slot held after an accept; <em>Confirm</em>, <em>Can’t book</em>, <em>Opening is gone</em></li>
+        <li>Same stylist + time can’t be logged twice; booked clients get no more offers</li>
+        <li>Staff dashboard</li>
+      </ul>
+    </div>
+    <div class="card col sim">
+      <h2>Simulated</h2>
+      <p class="sub">Stand-ins so the process can be shown safely</p>
+      <ul>
+        <li><strong>Waitlist:</strong> six made-up clients inside the app, not your Google Sheet</li>
+        <li><strong>Texts:</strong> shown on on-screen “phones”; nothing is sent</li>
+        <li><strong>Square check:</strong> staff check it themselves and press a button</li>
+        <li><strong>“Booked” status:</strong> kept only inside the prototype, not synced with Square</li>
+      </ul>
+    </div>
+    <div class="card col not">
+      <h2>Not built</h2>
+      <p class="sub">Needed before real use</p>
+      <ul>
+        <li>Real texting, Square, and Google Sheets connections</li>
+        <li>Permanent storage of the waitlist and booked status</li>
+        <li>Staff logins</li>
+        <li>Understanding typed replies (only Accept / Decline)</li>
+        <li>Openings on later days</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout">No real clients have been texted. The prototype is not ready for daily use.</div>
+  <div class="footer"><span>Juniper Salon waitlist prototype</span><span>3 / 4</span></div>
+</section>
+
+<!-- Slide 4: Next step -->
+<section class="slide">
+  <p class="eyebrow">Recommended next step</p>
+  <h1>Next: settle the open questions and connect your real systems, then test them before a small supervised pilot</h1>
+  <div class="s4">
+    <div class="card phase">
+      <div class="num">1</div>
+      <h2>Settle open questions</h2>
+      <ul>
+        <li>Rules for openings on later days</li>
+        <li>Remind staff if a held slot isn’t confirmed?</li>
+        <li>Someone asks to be removed while holding an offer</li>
+        <li>Text wording and opt-out</li>
+      </ul>
+      <span class="arrow">›</span>
+    </div>
+    <div class="card phase">
+      <div class="num">2</div>
+      <h2>Connect real systems</h2>
+      <ul>
+        <li>Texting from a salon number, with “STOP” to opt out</li>
+        <li>Your real waitlist instead of sample clients</li>
+        <li>Square, for checking the slot is still free</li>
+      </ul>
+      <span class="arrow">›</span>
+    </div>
+    <div class="card phase">
+      <div class="num">3</div>
+      <h2>Test the connections</h2>
+      <ul>
+        <li>Staff phones and test bookings only</li>
+        <li>Texts arrive, replies are picked up, and Square matches</li>
+        <li>Confirm no slot can be double-booked</li>
+      </ul>
+      <span class="arrow">›</span>
+    </div>
+    <div class="card phase pilot">
+      <div class="num">4</div>
+      <h2>Small supervised pilot</h2>
+      <ul>
+        <li>A limited set of same-day cancellations</li>
+        <li>Staff watch every step at first</li>
+        <li>Compare slots filled and staff time against today</li>
+      </ul>
+    </div>
+  </div>
+  <p class="note"><strong>Start counting now:</strong> cancellations, slots filled, and time spent texting give the pilot a baseline. No results are claimed yet; they will come from the pilot.</p>
+  <div class="footer"><span>Juniper Salon waitlist prototype</span><span>4 / 4</span></div>
+</section>
+
+</body>
+</html>
